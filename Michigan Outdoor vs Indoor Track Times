@@ -1,0 +1,123 @@
+import csv
+import requests
+from bs4 import BeautifulSoup
+import re
+import matplotlib.pyplot as plt
+import statistics
+import pandas as pd
+import numpy as np
+
+
+
+# Outdoor vs Indoor (Michigan)
+#Outdoor urls
+MI_outdoor_urls = []
+
+divID_outdoor = [71918, 81112, 90370, 99216, 108255, 117339,126469,135831 ]
+
+for year_idx in range(8):
+    urls = []
+    for div_id_idx in range(40):
+        if not (div_id_idx % 10):
+            urls.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(divID_outdoor[year_idx]+div_id_idx) + "&Event=52")
+    MI_outdoor_urls.append(urls)
+
+
+
+# Outdoor vs Indoor (Michigan)
+#Outdoor urls
+MI_indoor_urls = []
+
+divID_indoor = [76393, 85618, 94730, 103598, 112749, 121870,131009,140453 ]
+
+for year_idx in range(8):
+    urls = []
+    for div_id_idx in range(40):
+        if not (div_id_idx % 10): # skip division level, do only region
+            urls.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(divID_indoor[year_idx]+div_id_idx) + "&Event=52")
+    MI_indoor_urls.append(urls)
+
+
+
+MI_outdoor_times = []
+for year_urls in MI_outdoor_urls:
+    yearly_times = []
+    for url in year_urls:
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html5lib')
+
+        results = soup.find('tbody')#find_all('tr')
+        try:
+            for element in results:
+                string_version = str(element)
+                string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+                seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+                yearly_times += seconds
+        except:
+            print("outdoor no results",url)
+    MI_outdoor_times.append(yearly_times)
+
+MI_indoor_times = []
+for year_urls in MI_indoor_urls:
+    yearly_times = []
+    for url in year_urls:
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html5lib')
+
+        results = soup.find('tbody')#find_all('tr')
+        try:
+            for element in results:
+                string_version = str(element)
+                string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+                seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+                yearly_times += seconds
+        except:
+            print("indoor no results",url)
+    MI_indoor_times.append(yearly_times)
+
+
+#calculating means and standard deviations of outdoor track and indoor track times
+outdoor_means = [np.mean(MI_outdoor_times[i]) for i in range(8)]
+indoor_means  = [np.mean(MI_indoor_times[i]) for i in range(8)]
+outdoor_stdv  = [np.std(MI_outdoor_times[i]) for i in range(8)]
+indoor_stdv   = [np.std(MI_indoor_times[i]) for i in range(8)]
+
+outdoor_plus_stdv = [outdoor_means[i] + outdoor_stdv[i] for i in range(8)]
+outdoor_minus_stdv = [outdoor_means[i] - outdoor_stdv[i] for i in range(8)]
+indoor_plus_stdv = [indoor_means[i] + indoor_stdv[i] for i in range(8)]
+indoor_minus_stdv = [indoor_means[i] - indoor_stdv[i] for i in range(8)]
+
+
+years = np.arange(2016,2024)
+colormap = plt.get_cmap("tab10")
+
+
+plt.figure()
+plt.plot(years, outdoor_means , label='outdoor mean')
+plt.plot(years, outdoor_plus_stdv,"--", color=colormap(0))
+plt.plot(years, outdoor_minus_stdv,"--", color=colormap(0))
+plt.plot(years, indoor_means , label='indoor mean')
+plt.plot(years, indoor_plus_stdv,"--", color=colormap(1))
+plt.plot(years, indoor_minus_stdv,"--",color=colormap(1))
+ax = plt.gca()
+ax.fill_between(years, outdoor_plus_stdv, outdoor_minus_stdv, alpha=0.3, color=colormap(0))
+ax.fill_between(years, indoor_plus_stdv, indoor_minus_stdv, alpha=0.3, color=colormap(1))
+plt.legend()
+plt.xlabel('Year')
+plt.ylabel('Seconds')
+plt.title('Michigan Outdoor vs Indoor 1600m Times')
+
+plt.savefig('MI_Outdoor_Indoor.png', dpi=300)
+
+
+fig, ax = plt.subplots(sharey=True, sharex=True, nrows=2, ncols=4, figsize=(20,8))
+fig.suptitle('Michigan Outdoor vs Indoor 1600m Times')
+maxmin = (240,400)
+bins = 20
+for idx,axis in enumerate(ax.flat):
+    axis.hist(MI_outdoor_times[idx], bins=bins, alpha=0.5, range=maxmin,color=colormap(0),label='outdoor')
+    axis.hist(MI_indoor_times[idx], bins=bins, alpha=0.5, range=maxmin,color=colormap(1),label="indoor")
+    axis.set_title(str(2016+idx))
+    axis.legend()
+
+plt.savefig('MI_Outdoor_Indoor_Subplots.png', dpi=300)
