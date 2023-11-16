@@ -1,0 +1,410 @@
+# California - Rural vs Urban
+
+# Urban
+
+CA_urban_urls_2023 = []
+CA_urban_2023 = []
+for i in range(134983, 134983+4):
+    CA_urban_urls_2023.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+for url in CA_urban_urls_2023:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_urban_2023 += seconds
+
+
+# Gathering the webpages with urban CA running times
+
+CA_urban_urls_2022 = []
+for i in range(89, 93):
+    CA_urban_urls_2022.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=1255" + str(i) + "&Event=52&type=4")
+
+CA_urban_urls_2021 = []
+for i in range(116499, 116503):
+    CA_urban_urls_2021.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+CA_urban_urls_2020 = []
+for i in range(107478, 107478+4):
+    CA_urban_urls_2020.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+
+CA_urban_urls_2018 = []
+for i in range(89597, 89597+4):
+    CA_urban_urls_2018.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+CA_urban_urls_2017 = []
+for i in range(80348, 80348+4):
+    CA_urban_urls_2017.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+CA_urban_urls_2016 = []
+for i in range(71143, 71143+4):
+    CA_urban_urls_2016.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+CA_urban_urls_2019 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=98447&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=98448&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=98449&Event=52"]
+
+CA_urban_2022 = []
+CA_urban_2021 = []
+CA_urban_2020 = []
+CA_urban_2019 = []
+CA_urban_2018 = []
+CA_urban_2017 = []
+CA_urban_2016 = []
+
+
+# Extracting urban CA running times from each webpage
+
+for url in CA_urban_urls_2022:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_urban_2022 += seconds
+
+for url in CA_urban_urls_2021:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_urban_2021 += seconds
+
+for url in CA_urban_urls_2020:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_urban_2020 += seconds
+
+for url in CA_urban_urls_2019:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_urban_2019 += seconds
+
+for url in CA_urban_urls_2018:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_urban_2018 += seconds
+
+for url in CA_urban_urls_2017:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_urban_2017 += seconds
+
+
+for url in CA_urban_urls_2016:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_urban_2016 += seconds
+
+
+# Calculating mean and standard deviations for urban CA running times
+
+mean_2023_urban = average(CA_urban_2023)
+mean_2022_urban = average(CA_urban_2022)
+mean_2021_urban = average(CA_urban_2021)
+mean_2020_urban = average(CA_urban_2020)
+mean_2019_urban = average(CA_urban_2019)
+mean_2018_urban = average(CA_urban_2018)
+mean_2017_urban = average(CA_urban_2017)
+mean_2016_urban = average(CA_urban_2016)
+
+std_above_2023_urban = mean_2023_urban + statistics.stdev(CA_urban_2023)
+std_below_2023_urban = mean_2023_urban - statistics.stdev(CA_urban_2023)
+std_above_2022_urban = mean_2022_urban + statistics.stdev(CA_urban_2022)
+std_below_2022_urban = mean_2022_urban - statistics.stdev(CA_urban_2022)
+std_above_2021_urban = mean_2021_urban + statistics.stdev(CA_urban_2021)
+std_below_2021_urban = mean_2021_urban - statistics.stdev(CA_urban_2021)
+std_above_2020_urban = mean_2020_urban + statistics.stdev(CA_urban_2020)
+std_below_2020_urban = mean_2020_urban - statistics.stdev(CA_urban_2020)
+std_above_2019_urban = mean_2019_urban + statistics.stdev(CA_urban_2019)
+std_below_2019_urban = mean_2019_urban - statistics.stdev(CA_urban_2019)
+std_above_2018_urban = mean_2018_urban + statistics.stdev(CA_urban_2018)
+std_below_2018_urban = mean_2018_urban - statistics.stdev(CA_urban_2018)
+std_above_2017_urban = mean_2017_urban + statistics.stdev(CA_urban_2017)
+std_below_2017_urban = mean_2017_urban - statistics.stdev(CA_urban_2017)
+std_above_2016_urban = mean_2016_urban + statistics.stdev(CA_urban_2016)
+std_below_2016_urban = mean_2016_urban - statistics.stdev(CA_urban_2016)
+
+means_urban = [mean_2016_urban, mean_2017_urban, mean_2018_urban, mean_2019_urban, mean_2020_urban, mean_2021_urban, mean_2022_urban, mean_2023_urban]
+std_above_urban = [std_above_2016_urban, std_above_2017_urban, std_above_2018_urban, std_above_2019_urban, std_above_2020_urban, std_above_2021_urban, std_above_2022_urban, std_above_2023_urban]
+std_below_urban = [std_below_2016_urban, std_below_2017_urban, std_below_2018_urban, std_below_2019_urban, std_below_2020_urban, std_below_2021_urban, std_below_2022_urban, std_below_2023_urban]
+
+
+years = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+
+
+
+# Rural California
+
+# Gathering the webpages with rural CA running times
+
+CA_rural_urls_2023 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=134924&Event=52", 
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=134925&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=134927&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=134929&Event=52"]
+
+CA_rural_urls_2022 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=125530&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=125531&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=125533&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=125535&Event=52"]
+
+CA_rural_urls_2021 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=116440&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=116441&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=116443&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=116445&Event=52"]
+CA_rural_urls_2020 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=107414&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=107415&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=107417&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=107419&Event=52"]
+CA_rural_urls_2019 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=98389&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=98390&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=98392&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=98394&Event=52"]
+CA_rural_urls_2018 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=89537&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=89538&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=89540&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=89542&Event=52"]
+CA_rural_urls_2017 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=80288&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=80289&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=80291&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=80293&Event=52"]
+CA_rural_urls_2016 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=71084&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=71085&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=125533&Event=52",
+                      "https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=125535&Event=52"]
+CA_rural_2023 = []
+CA_rural_2022 = []
+CA_rural_2021 = []
+CA_rural_2020 = []
+CA_rural_2019 = []
+CA_rural_2018 = []
+CA_rural_2017 = []
+CA_rural_2016 = []
+
+
+# Extracting rural CA running times from each webpage
+
+for url in CA_rural_urls_2023:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_rural_2023 += seconds
+
+for url in CA_rural_urls_2022:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_rural_2022 += seconds
+
+for url in CA_rural_urls_2021:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_rural_2021 += seconds
+
+for url in CA_rural_urls_2020:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_rural_2020 += seconds
+
+for url in CA_rural_urls_2019:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_rural_2019 += seconds
+
+for url in CA_rural_urls_2018:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_rural_2018 += seconds
+
+for url in CA_rural_urls_2017:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_rural_2017 += seconds
+
+for url in CA_rural_urls_2016:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        CA_rural_2016 += seconds
+
+
+# Calculating mean and standard deviations for rural CA
+
+mean_CA_rural_2023 = average(CA_rural_2023)
+mean_CA_rural_2022 = average(CA_rural_2022)
+mean_CA_rural_2021 = average(CA_rural_2021)
+mean_CA_rural_2020 = average(CA_rural_2020)
+mean_CA_rural_2019 = average(CA_rural_2019)
+mean_CA_rural_2018 = average(CA_rural_2018)
+mean_CA_rural_2017 = average(CA_rural_2017)
+mean_CA_rural_2016 = average(CA_rural_2016)
+
+std_above_CA_rural_2023 = mean_CA_rural_2023 + statistics.stdev(CA_rural_2023)
+std_below_CA_rural_2023 = mean_CA_rural_2023 - statistics.stdev(CA_rural_2023)
+std_above_CA_rural_2022 = mean_CA_rural_2022 + statistics.stdev(CA_rural_2022)
+std_below_CA_rural_2022 = mean_CA_rural_2022 - statistics.stdev(CA_rural_2022)
+std_above_CA_rural_2021 = mean_CA_rural_2021 + statistics.stdev(CA_rural_2021)
+std_below_CA_rural_2021 = mean_CA_rural_2021 - statistics.stdev(CA_rural_2021)
+std_above_CA_rural_2020 = mean_CA_rural_2020 + statistics.stdev(CA_rural_2020)
+std_below_CA_rural_2020 = mean_CA_rural_2020 - statistics.stdev(CA_rural_2020)
+std_above_CA_rural_2019 = mean_CA_rural_2019 + statistics.stdev(CA_rural_2019)
+std_below_CA_rural_2019 = mean_CA_rural_2019 - statistics.stdev(CA_rural_2019)
+std_above_CA_rural_2018 = mean_CA_rural_2018 + statistics.stdev(CA_rural_2018)
+std_below_CA_rural_2018 = mean_CA_rural_2018 - statistics.stdev(CA_rural_2018)
+std_above_CA_rural_2017 = mean_CA_rural_2017 + statistics.stdev(CA_rural_2017)
+std_below_CA_rural_2017 = mean_CA_rural_2017 - statistics.stdev(CA_rural_2017)
+std_above_CA_rural_2016 = mean_CA_rural_2016 + statistics.stdev(CA_rural_2016)
+std_below_CA_rural_2016 = mean_CA_rural_2016 - statistics.stdev(CA_rural_2016)
+
+mean_rural_CA = [mean_CA_rural_2016, mean_CA_rural_2017, mean_CA_rural_2018, mean_CA_rural_2019, mean_CA_rural_2020, mean_CA_rural_2021, mean_CA_rural_2022, mean_CA_rural_2023]
+std_above_rural_CA = [std_above_CA_rural_2016, std_above_CA_rural_2017, std_above_CA_rural_2018, std_above_CA_rural_2019, std_above_CA_rural_2020, std_above_CA_rural_2021, std_above_CA_rural_2022, std_above_CA_rural_2023]
+std_below_rural_CA = [std_below_CA_rural_2016, std_below_CA_rural_2017, std_below_CA_rural_2018, std_below_CA_rural_2019, std_below_CA_rural_2020, std_below_CA_rural_2021, std_below_CA_rural_2022, std_below_CA_rural_2023]
+
+
+
+# Plotting urban and rural CA times 
+
+bins = 15
+range3=(250,400)
+CA_urban = [CA_urban_2016,CA_urban_2017,CA_urban_2018,CA_urban_2019,CA_urban_2020,CA_urban_2021,CA_urban_2022,CA_urban_2023]
+CA_rural = [CA_rural_2016,CA_rural_2017,CA_rural_2018,CA_rural_2019,CA_rural_2020,CA_rural_2021,CA_rural_2022,CA_rural_2023]
+fig, ax = plt.subplots(sharey=True, sharex=True, nrows=2, ncols=4, figsize=(12,5))
+for idx,axis in enumerate(ax.flat):
+    axis.hist(CA_urban[idx], bins=bins, alpha=0.5, label="urban",range=range3)
+    axis.hist(CA_rural[idx], bins=bins, alpha=0.5, label="rural",range=range3)
+    if idx>3:
+        axis.set_xlabel('Seconds')
+    if idx in (0,4):
+        axis.set_ylabel('Frequency')
+    #
+    #  axis.set_ylabel('Frequency')
+    axis.set_title(str(2016+idx))
+    axis.legend()
+
+plt.suptitle("Urban vs Rural 1600m Times in California")
+
+plt.savefig('Rural_vs_Urban_1600m_subplots.png', dpi=300)
+
+
+
+
+colormap = plt.get_cmap("tab10")
+plt.figure()
+plt.plot(years, mean_rural_CA, label='Rural')
+plt.plot(years, std_above_rural_CA, '--', color=colormap(0))
+plt.plot(years, std_below_rural_CA, '--', color=colormap(0))
+plt.plot(years, means_urban, label='Urban')
+plt.plot(years, std_above_urban, '--', color=colormap(1))
+plt.plot(years, std_below_urban, '--', color=colormap(1))
+ax=plt.gca()
+ax.fill_between(years, std_above_rural_CA, std_below_rural_CA, alpha=0.3, color=colormap(0))
+ax.fill_between(years, std_above_urban, std_below_urban, alpha=0.3, color=colormap(1))
+plt.legend()
+plt.xlabel('Year')
+plt.ylabel('Seconds')
+plt.title('Urban vs Rural 1600m Times in California')
+
+plt.savefig('Urban_vs_Rural_1600m_Means_Std.png', dpi=300)
