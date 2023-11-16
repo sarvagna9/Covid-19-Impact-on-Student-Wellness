@@ -1,0 +1,225 @@
+import csv
+import requests
+from bs4 import BeautifulSoup
+import re
+import matplotlib.pyplot as plt
+import statistics
+
+# New York - 1600m
+
+# Gathering webpages with 1600m running times in New York
+
+NY_urls_2023 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=136246&Event=52&type=4",
+"https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=136247&Event=52&type=4",
+"https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=136248&Event=52&type=4"]
+
+NY_urls_2022 = []
+for i in range(126898, 126901):
+    NY_urls_2022.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+NY_urls_2021 = []
+for i in range(117774, 117777):
+    NY_urls_2021.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+#NY_urls_2020 = []
+#for i in range(108687, 108690):
+#    NY_urls_2020.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+NY_urls_2019 = []
+for i in range(99650, 99653):
+    NY_urls_2019.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+NY_urls_2018 = []
+for i in range(90807, 90810):
+    NY_urls_2018.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+NY_urls_2017 = []
+for i in range(81549, 81552):
+    NY_urls_2017.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+NY_urls_2016 = []
+for i in range(72361, 72364):
+    NY_urls_2016.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52&type=4")
+
+
+NY_2023 = []
+NY_2022 = []
+NY_2021 = []
+NY_2020 = []
+NY_2019 = []
+NY_2018 = []
+NY_2017 = []
+NY_2016 = []
+
+# Extracting the 1600m running times from each webpage and appending to lists.
+
+for url in NY_urls_2023:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        NY_2023 += seconds
+
+for url in NY_urls_2022:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        NY_2022 += seconds
+
+# No running times in 2020 in NY
+
+for url in NY_urls_2021:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        NY_2021 += seconds
+
+for url in NY_urls_2019:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        NY_2019 += seconds
+
+for url in NY_urls_2018:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        NY_2018 += seconds
+
+
+for url in NY_urls_2017:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        NY_2017 += seconds
+
+
+for url in NY_urls_2016:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        NY_2016 += seconds
+
+
+# Calculating mean and standard deviations for running times in NY
+NY_mean_2023 = average(NY_2023)
+NY_mean_2022 = average(NY_2022)
+NY_mean_2021 = average(NY_2021)
+#NY_mean_2020 = average(NY_2020)
+NY_mean_2019 = average(NY_2019)
+NY_mean_2018 = average(NY_2018)
+NY_mean_2017 = average(NY_2017)
+NY_mean_2016 = average(NY_2016)
+
+NY_std_above_2023 = NY_mean_2023 + statistics.stdev(NY_2023)
+NY_std_below_2023 = NY_mean_2023 - statistics.stdev(NY_2023)
+NY_std_above_2022 = NY_mean_2022 + statistics.stdev(NY_2022)
+NY_std_below_2022 = NY_mean_2022 - statistics.stdev(NY_2022)
+NY_std_above_2021 = NY_mean_2021 + statistics.stdev(NY_2021)
+NY_std_below_2021 = NY_mean_2021 - statistics.stdev(NY_2021)
+#NY_std_above_2020 = NY_mean_2020 + statistics.stdev(NY_2020)
+#NY_std_below_2020 = NY_mean_2020 - statistics.stdev(NY_2020)
+NY_std_above_2019 = NY_mean_2019 + statistics.stdev(NY_2019)
+NY_std_below_2019 = NY_mean_2019 - statistics.stdev(NY_2019)
+NY_std_above_2018 = NY_mean_2018 + statistics.stdev(NY_2018)
+NY_std_below_2018 = NY_mean_2018 - statistics.stdev(NY_2018)
+NY_std_above_2017 = NY_mean_2017 + statistics.stdev(NY_2017)
+NY_std_below_2017 = NY_mean_2017 - statistics.stdev(NY_2017)
+NY_std_above_2016 = NY_mean_2016 + statistics.stdev(NY_2016)
+NY_std_below_2016 = NY_mean_2016 - statistics.stdev(NY_2016)
+
+NY_means = [NY_mean_2016, NY_mean_2017, NY_mean_2018, NY_mean_2019, NY_mean_2021, NY_mean_2022, NY_mean_2023]
+NY_std_above = [NY_std_above_2016, NY_std_above_2017, NY_std_above_2018, NY_std_above_2019, NY_std_above_2021, NY_std_above_2022, NY_std_above_2023]
+NY_std_below = [NY_std_below_2016, NY_std_below_2017, NY_std_below_2018, NY_std_below_2019, NY_std_below_2021, NY_std_below_2022, NY_std_below_2023]
+
+years = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
+NY_means.insert(4, np.nan)
+NY_std_above.insert(4, np.nan)
+NY_std_below.insert(4, np.nan)
+
+
+# Code for Texas running times are in another file in this repository
+
+
+# Plotting Texas vs New York running 1600m running times
+
+plt.figure()
+plt.plot(years, TX_means, label='Texas')
+plt.plot(years, TX_std_above, '--',color=colormap(0))
+plt.plot(years, TX_std_below, '--', color=colormap(0))
+plt.plot(years, NY_means, label='New York')
+plt.plot(years, NY_std_above, '--', color=colormap(1))
+plt.plot(years, NY_std_below, '--', color=colormap(1))
+ax=plt.gca()
+ax.fill_between(years, TX_std_above, TX_std_below, alpha=0.3, color=colormap(0))
+ax.fill_between(years, NY_std_above, NY_std_below, alpha=0.3, color=colormap(1))
+plt.legend()
+plt.xlabel('Year')
+plt.ylabel('Seconds')
+plt.title('Texas vs New York 1600m Times')
+
+plt.savefig('Texas_vs_NewYork.png', dpi=300)
+
+
+range6 = (230, 400)
+bins = 15
+tx_data = [TX_2016, TX_2017, TX_2018, TX_2019, TX_2020, TX_2021, TX_2022, TX_2023]
+new_york_data = [NY_2016, NY_2017, NY_2018, NY_2019, NY_2020, NY_2021, NY_2022, NY_2023]
+
+fig, ax = plt.subplots(sharey=True, sharex=True, nrows=2, ncols=4, figsize=(12,5))
+for idx,axis in enumerate(ax.flat):
+    axis.hist(tx_data[idx], bins=bins, alpha=0.5, label="Texas",range=range6)
+    axis.hist(new_york_data[idx], bins=bins, alpha=0.5, label="New York",range=range6)
+    if idx>3:
+        axis.set_xlabel('Seconds')
+    if idx in (0,4):
+        axis.set_ylabel('Frequency')
+    #
+    #  axis.set_ylabel('Frequency')
+    axis.set_title(str(2016+idx))
+    axis.legend()
+
+plt.suptitle("Texas vs New York 1600m Times")
+
+plt.savefig('Texas_vs_NewYork_1600m.png', dpi=300)
