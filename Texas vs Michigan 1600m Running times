@@ -1,0 +1,248 @@
+import csv
+import requests
+from bs4 import BeautifulSoup
+import re
+import matplotlib.pyplot as plt
+import statistics
+import pandas as pd
+import numpy as np
+
+
+#Texas - 1600m
+TX_urls_2023 = []
+for i in range(136746, 136750):
+    TX_urls_2023.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52")
+
+
+TX_urls_2022 = []
+for i in range(127384, 127389):
+    TX_urls_2022.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52")
+
+TX_urls_2021 = []
+for i in range(118260, 118264):
+    TX_urls_2021.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52")
+
+
+TX_urls_2020 = []
+for i in range(136746, 136750):
+    TX_urls_2020.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52")
+
+TX_urls_2019 = ["https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=106673&Event=52",
+"https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=100146&Event=52",
+"https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=100147&Event=52",
+"https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=100148&Event=52",
+"https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=100149&Event=52"]
+
+TX_urls_2018 = []
+for i in range(91270, 91273):
+    TX_urls_2018.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52")
+
+TX_urls_2017 = []
+for i in range(82028, 82031):
+    TX_urls_2017.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52")
+
+TX_urls_2016 = []
+for i in range(72849, 72852):
+    TX_urls_2016.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=" + str(i) + "&Event=52")
+
+TX_2016 = []
+TX_2017 = []
+TX_2018 = []
+TX_2019 = []
+TX_2020 = []
+TX_2021 = []
+TX_2022 = []
+TX_2023 = []
+
+TX_urls_2016.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=72858&Event=52")
+TX_urls_2017.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=82037&Event=52")
+TX_urls_2019.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=100156&Event=52")
+TX_urls_2021.append("https://www.athletic.net/TrackAndField/Division/Event.aspx?DivID=118270&Event=52")
+
+
+# Extracting the 1600m running times from the webpages, converting them to seconds, and appending the times to lists.
+
+for url in TX_urls_2023:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        TX_2023 += seconds
+
+for url in TX_urls_2022:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        TX_2022 += seconds
+
+for url in TX_urls_2021:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        TX_2021 += seconds
+
+for url in TX_urls_2020:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        TX_2020 += seconds
+
+for url in TX_urls_2018:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        TX_2018 += seconds
+
+
+for url in TX_urls_2019:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        TX_2019 += seconds
+
+for url in TX_urls_2018:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        TX_2018 += seconds
+
+for url in TX_urls_2017:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        TX_2017 += seconds
+
+for url in TX_urls_2016:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html5lib')
+
+    results = soup.find('tbody')
+
+    for element in results:
+        string_version = str(element)
+        string_time = re.findall(r'\d\:\d\d\.\d\d+', string_version)
+        seconds = [int(item[0])*60 + int(item[2:4]) + int(item[5:7])*10**-2 for item in string_time]
+        TX_2016 += seconds
+
+
+#calculating mean and standard deviations of Texas running times
+
+TX_mean_2023 = np.mean(TX_2023)
+TX_mean_2022 = np.mean(TX_2022)
+TX_mean_2021 = np.mean(TX_2021)
+TX_mean_2020 = np.mean(TX_2020)
+TX_mean_2019 = np.mean(TX_2019)
+TX_mean_2018 = np.mean(TX_2018)
+TX_mean_2017 = np.mean(TX_2017)
+TX_mean_2016 = np.mean(TX_2016)
+
+TX_std_above_2023 = TX_mean_2023 + statistics.stdev(TX_2023)
+TX_std_below_2023 = TX_mean_2023 - statistics.stdev(TX_2023)
+TX_std_above_2022 = TX_mean_2022 + statistics.stdev(TX_2022)
+TX_std_below_2022 = TX_mean_2022 - statistics.stdev(TX_2022)
+TX_std_above_2021 = TX_mean_2021 + statistics.stdev(TX_2021)
+TX_std_below_2021 = TX_mean_2021 - statistics.stdev(TX_2021)
+TX_std_above_2020 = TX_mean_2020 + statistics.stdev(TX_2020)
+TX_std_below_2020 = TX_mean_2020 - statistics.stdev(TX_2020)
+TX_std_above_2019 = TX_mean_2019 + statistics.stdev(TX_2019)
+TX_std_below_2019 = TX_mean_2019 - statistics.stdev(TX_2019)
+TX_std_above_2018 = TX_mean_2018 + statistics.stdev(TX_2018)
+TX_std_below_2018 = TX_mean_2018 - statistics.stdev(TX_2018)
+TX_std_above_2017 = TX_mean_2017 + statistics.stdev(TX_2017)
+TX_std_below_2017 = TX_mean_2017 - statistics.stdev(TX_2017)
+TX_std_above_2016 = TX_mean_2016 + statistics.stdev(TX_2016)
+TX_std_below_2016 = TX_mean_2016 - statistics.stdev(TX_2016)
+
+TX_means = [TX_mean_2016, TX_mean_2017, TX_mean_2018, TX_mean_2019, TX_mean_2020, TX_mean_2021, TX_mean_2022, TX_mean_2023]
+TX_std_above = [TX_std_above_2016, TX_std_above_2017, TX_std_above_2018, TX_std_above_2019, TX_std_above_2020, TX_std_above_2021, TX_std_above_2022, TX_std_above_2023]
+TX_std_below = [TX_std_below_2016, TX_std_below_2017, TX_std_below_2018, TX_std_below_2019, TX_std_below_2020, TX_std_below_2021, TX_std_below_2022, TX_std_below_2023]
+
+
+# Graphing Texas and Michigan times
+# Code for Michigan times are in another file
+
+range = (230, 400)
+bins = 15
+tx_data = [TX_2016, TX_2017, TX_2018, TX_2019, TX_2020, TX_2021, TX_2022, TX_2023]
+
+
+fig, ax = plt.subplots(sharey=True, sharex=True, nrows=2, ncols=4, figsize=(20,8))
+for idx,axis in enumerate(ax.flat):
+    axis.hist(tx_data[idx], bins=bins, alpha=0.5, label="Texas",range=range)
+    axis.hist(MI_outdoor_times[idx], bins=bins, alpha=0.5, label="Michigan",range=range)
+    if idx>3:
+        axis.set_xlabel('Seconds')
+    if idx in (0,4):
+        axis.set_ylabel('Frequency')
+    #
+    #  axis.set_ylabel('Frequency')
+    axis.set_title(str(2016+idx))
+    axis.legend()
+
+plt.suptitle("Texas vs Michigan 1600m Times")
+plt.savefig('Texas_vs_Michigan_1600m.png', dpi=300)
+
+
+plt.figure()
+plt.plot(years, TX_means, label='Texas')
+plt.plot(years, TX_std_above, "--",color=colormap(0))
+plt.plot(years, TX_std_below, "--",color=colormap(0))
+plt.plot(years, outdoor_means , label='Michigan')
+plt.plot(years, outdoor_plus_stdv, "--", color=colormap(1))
+plt.plot(years, outdoor_minus_stdv,"--", color=colormap(1))
+ax=plt.gca()
+ax.fill_between(years, TX_std_above, TX_std_below, alpha=0.3, color=colormap(0))
+ax.fill_between(years, outdoor_plus_stdv, outdoor_minus_stdv, alpha=0.3, color=colormap(1))
+plt.legend()
+plt.xlabel('Year')
+plt.ylabel('Seconds')
+plt.title('Texas vs Michigan 1600m Times')
+
+plt.savefig('TX_MI_times.png', dpi=300)
